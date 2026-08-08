@@ -1,0 +1,26 @@
+{
+  "name": "chripy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type" : "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "npx tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rain-lab5/Chripy.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/rain-lab5/Chripy/issues"
+  },
+  "homepage": "https://github.com/rain-lab5/Chripy#readme",
+  "dependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
