@@ -8,6 +8,9 @@ import { handleValidateChirp } from './handlers/handlerValidateChripy.js';
 const app : Express = express();
 const PORT = 8080;
 
+//---We can use this instead of manually constructing the body based on events like stream,on("data", functionality)---//
+app.use(express.json());
+
 app.use("/app",middlewareMetricsInc);
 app.use("/app", express.static("./src/app"));
 app.use(middlewareLogResponses);
