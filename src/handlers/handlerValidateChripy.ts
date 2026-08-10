@@ -27,17 +27,14 @@ export function handleValidateChirp(req: Request, res: Response) {
   }
 
   if (body.body.length > 140) {
-    res.status(400).json({
-      error: "Chirp is too long",
-    });
-    return;
+   throw new Error("Chirp is too long");
   }
 
   //---at this point our json is ready---//
- const words = body.body.toLowerCase().split(" ");
+  const words = body.body.split(" ");
 
   const cleanedWords = words.map((word : string) => {
-    if (targetWords.includes(word as TargetWord)) {
+    if (targetWords.includes(word.toLocaleLowerCase() as TargetWord)) {
       return "****";
     }
 
