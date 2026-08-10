@@ -1,8 +1,9 @@
 import express, {type Request, type Express, type Response} from 'express';
 import {middlewareLogResponses} from "./middleware/logResponse.js";
 import { middlewareMetricsInc } from './middleware/metrics.js';
-import { handlerMetrics } from './handlers/handlerMetrics.js';
+import { handleMetrics } from './handlers/handlerMetrics.js';
 import { handleResetHits } from './handlers/handleResetHits.js';
+import { handleValidateChirp } from './handlers/handlerValidateChripy.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -21,8 +22,10 @@ app.get("/api/healthz", (req : Request, res : Response) => {
   res.status(200).send("OK");
 });
 
-app.get("/admin/metrics",handlerMetrics);
+app.get("/admin/metrics",handleMetrics);
 
-app.get("/admin/reset",handleResetHits);
+app.post("/admin/reset",handleResetHits);
+
+app.post("/api/validate_chirp",handleValidateChirp)
 
 

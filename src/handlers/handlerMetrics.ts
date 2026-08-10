@@ -3,7 +3,7 @@ import {config} from "../config.js";
 import type {Request, Response} from "express";
 
 
-export function handlerMetrics(req : Request, res : Response)
+export async function handleMetrics(req : Request, res : Response)
 {
 //---The browser will render this---//
 const html = 
