@@ -1,10 +1,19 @@
 import type { Request, Response } from "express";
 
+
+type TargetWord = "kerfuffle" | "sharbert" | "fornax";
+
+const targetWords: TargetWord[] = [
+  "kerfuffle",
+  "sharbert",
+  "fornax",
+];
+
 export function handleValidateChirp(req: Request, res: Response) {
   
     //---I replaced the manual constructing of body---//
     const body = req.body;
-
+   
   if (
     typeof body !== "object" ||
     body === null ||
@@ -24,7 +33,21 @@ export function handleValidateChirp(req: Request, res: Response) {
     return;
   }
 
+  //---at this point our json is ready---//
+ const words = body.body.toLowerCase().split(" ");
+
+  const cleanedWords = words.map((word : string) => {
+    if (targetWords.includes(word as TargetWord)) {
+      return "****";
+    }
+
+    return word;
+  });
+
+  const cleanedBody = cleanedWords.join(" ");
+
+
   res.status(200).json({
-    valid: true,
+    cleanedBody,
   });
 }
