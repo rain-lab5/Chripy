@@ -1,4 +1,6 @@
 import type { Request, Response } from "express";
+import { BadRequestError } from "../errors/BadRequestError.js"; 
+
 
 
 type TargetWord = "kerfuffle" | "sharbert" | "fornax";
@@ -27,7 +29,7 @@ export function handleValidateChirp(req: Request, res: Response) {
   }
 
   if (body.body.length > 140) {
-   throw new Error("Chirp is too long");
+   throw new BadRequestError("Chirp is too long. Max length is 140");
   }
 
   //---at this point our json is ready---//
