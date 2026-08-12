@@ -30,12 +30,17 @@ app.get("/admin/metrics",handleMetrics);
 
 app.post("/admin/reset",handleDeleteUsers);
 
-app.post("/api/validate_chirp",handleValidateChirp)
+//--- TO DELETE ---//
+//app.post("/api/validate_chirp",handleValidateChirp)
+//--- TO DELETE ---//
 
 app.post("/api/users",handleCreateUser);
 
-app.use(errorHandler);
+app.post("api/chirps",);
 
+
+//--- This must be after all methods, before the listen ---//
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
