@@ -6,6 +6,7 @@ import { handleResetHits } from './handlers/handleResetHits.js';
 import { handleValidateChirp } from './handlers/handlerValidateChripy.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { handleCreateUser } from './handlers/handleCreateUser.js';
+import { handleDeleteUsers } from './handlers/handleDeleteUsers.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -27,7 +28,7 @@ app.get("/api/healthz", (req : Request, res : Response) => {
 
 app.get("/admin/metrics",handleMetrics);
 
-app.post("/admin/reset",handleResetHits);
+app.post("/admin/reset",handleDeleteUsers);
 
 app.post("/api/validate_chirp",handleValidateChirp)
 
