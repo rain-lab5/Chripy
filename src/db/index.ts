@@ -1,0 +1,14 @@
+//---In this file we create an object that we can use to access the database---//
+//---Thats why i like Drizzle---//
+
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+import * as schema from "./schema.js";
+import { config } from "../config.js";
+
+const conn = postgres(config.db.url);
+export const db = drizzle(conn, { schema });
+
+const migrationClient = postgres(config.db.url, { max: 1 });
+await migrate(drizzle(migrationClient), config.db.migrationConfig);

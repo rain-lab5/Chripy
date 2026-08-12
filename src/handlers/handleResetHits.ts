@@ -5,6 +5,6 @@ import type {Request, Response} from "express";
 export async function handleResetHits(req : Request, res : Response)
 {
     //---Hitting any endpoint this handler is assigned to will reset the counter---//
-   config.fileserverHits = 0; 
+   config.api.fileserverHits = 0; 
     res.status(200).send("[+] Counter is reset down to 0 successfully!");
 }

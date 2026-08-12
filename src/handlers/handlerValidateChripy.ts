@@ -1,8 +1,6 @@
 import type { Request, Response } from "express";
 import { BadRequestError } from "../errors/BadRequestError.js"; 
 
-
-
 type TargetWord = "kerfuffle" | "sharbert" | "fornax";
 
 const targetWords: TargetWord[] = [

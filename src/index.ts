@@ -5,6 +5,7 @@ import { handleMetrics } from './handlers/handlerMetrics.js';
 import { handleResetHits } from './handlers/handleResetHits.js';
 import { handleValidateChirp } from './handlers/handlerValidateChripy.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import { handleCreateUser } from './handlers/handleCreateUser.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -30,7 +31,7 @@ app.post("/admin/reset",handleResetHits);
 
 app.post("/api/validate_chirp",handleValidateChirp)
 
-
+app.post("/api/users",handleCreateUser);
 
 app.use(errorHandler);
 
