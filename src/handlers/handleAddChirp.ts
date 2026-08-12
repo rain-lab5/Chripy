@@ -14,21 +14,27 @@ const targetWords: TargetWord[] = [
 export async function handleAddChirp(req : Request, res : Response)
 {
     const body = req.body;
-       
-      if (
-        typeof body !== "object" ||
-        body === null ||
-        !("body" in body) ||
-        typeof body.body !== "string" 
-        || ("userId" in body) ||
-        typeof body.userId !== "string"
-      ) {
-        res.status(400).json({
-          error: "Invalid request body",
-        });
-        return;
-      }
-    
+
+
+    //--- For debugging the problem, delete these after fixing ---//
+    console.log("REQUEST BODY:", body);
+    console.log("BODY TYPE:", typeof body);
+    //--- For debugging the problem, delete these after fixing ---//  
+
+
+        if (
+            typeof body !== "object" ||
+            body === null ||
+            !("body" in body) ||
+            typeof body.body !== "string" ||
+            !("userId" in body) ||
+            typeof body.userId !== "string"
+            ){
+                res.status(400).json({
+                error: "Invalid request body",
+            });
+            return;
+}
       if (body.body.length > 140) {
        throw new BadRequestError("Chirp is too long. Max length is 140");
       }

@@ -37,7 +37,7 @@ app.post("/admin/reset",handleDeleteUsers);
 
 app.post("/api/users",handleCreateUser);
 
-app.post("api/chirps",handleAddChirp);
+app.post("/api/chirps",handleAddChirp);
 
 
 //--- This must be after all methods, before the listen ---//
