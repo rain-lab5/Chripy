@@ -8,6 +8,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { handleCreateUser } from './handlers/handleCreateUser.js';
 import { handleDeleteUsers } from './handlers/handleDeleteUsers.js';
 import { handleAddChirp } from './handlers/handleAddChirp.js';
+import { handleGetChirps } from './handlers/handleGetChirps.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -38,7 +39,7 @@ app.post("/admin/reset",handleDeleteUsers);
 app.post("/api/users",handleCreateUser);
 
 app.post("/api/chirps",handleAddChirp);
-
+app.get("/api/chirps",handleGetChirps);
 
 //--- This must be after all methods, before the listen ---//
 app.use(errorHandler);
