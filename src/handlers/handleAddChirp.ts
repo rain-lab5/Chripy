@@ -3,7 +3,11 @@ import type { handler } from "../config.js";
 import { BadRequestError } from "../errors/BadRequestError.js";
 import {NewChirp} from "../db/schema.js";
 import { createChirp } from "../db/queries/chirps.js";
+import { getBearerToken,validateJWT } from "../authentication/auth.js";
+import {config} from '../config.js';
+
 type TargetWord = "kerfuffle" | "sharbert" | "fornax";
+
 
 const targetWords: TargetWord[] = [
   "kerfuffle",
@@ -26,9 +30,7 @@ export async function handleAddChirp(req : Request, res : Response)
             typeof body !== "object" ||
             body === null ||
             !("body" in body) ||
-            typeof body.body !== "string" ||
-            !("userId" in body) ||
-            typeof body.userId !== "string"
+            typeof body.body !== "string"
             ){
                 res.status(400).json({
                 error: "Invalid request body",
@@ -52,11 +54,14 @@ export async function handleAddChirp(req : Request, res : Response)
       //--- This is the final chirpy message, filtered, validated ---//
       const cleanedBody = cleanedWords.join(" ");
      
+
+      const recievedToken = getBearerToken(req);
+      const userID = validateJWT(recievedToken,config.secret);
       const chirp : NewChirp = {
         body : cleanedBody,
-        //--- This is not secure for a while, since any user with the other user's id can post a chirp (IDOR)
-        user_id : body.userId,
+        user_id : userID,
       }
+
       const createdChirp = await createChirp(chirp);
       if(!createdChirp)
       {
