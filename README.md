@@ -10,6 +10,7 @@ Chripy-recovered
 │   │   │   └──logo.png
 │   │   └──index.html
 │   ├──authentication
+│   │   ├──auth.test.ts
 │   │   └──auth.ts
 │   ├──db
 │   │   ├──migrations
@@ -20,9 +21,11 @@ Chripy-recovered
 │   │   │   │   └──0002_snapshot.json
 │   │   │   ├──0000_spicy_magneto.sql
 │   │   │   ├──0001_orange_silvermane.sql
-│   │   │   └──0002_harsh_wrecker.sql
+│   │   │   ├──0002_harsh_wrecker.sql
+│   │   │   └──0003_lively_zeus.sql
 │   │   ├──queries
 │   │   │   ├──chirps.ts
+│   │   │   ├──refreshTokens.ts
 │   │   │   └──users.ts
 │   │   ├──index.ts
 │   │   └──schema.ts
@@ -38,7 +41,9 @@ Chripy-recovered
 │   │   ├──handleGetChirp.ts
 │   │   ├──handleGetChirps.ts
 │   │   ├──handleLogin.ts
+│   │   ├──handleRefresh.ts
 │   │   ├──handleResetHits.ts
+│   │   ├──handleRevoke.ts
 │   │   ├──handlerMetrics.ts
 │   │   └──handlerValidateChripy.ts
 │   ├──middleware
