@@ -9,12 +9,15 @@ export const users = pgTable("users", {
     .defaultNow()
     .$onUpdate(() => new Date()),
   email: varchar("email", { length: 256 }).unique().notNull(),
+  hashed_password : varchar("hashed_password", { length: 255 }).notNull().default("unset"),
 });
 
 
-//--- TYPE INFER FROM TABLE ---//
+//--- TYPE INFER -INSERT- FROM TABLE ---//
 export type NewUser = typeof users.$inferInsert;
-//--- TYPE INFER FROM TABLE ---//
+//--- TYPE INFER -INSERT- FROM TABLE ---//
+
+export type User = typeof users.$inferSelect;
 
 export const chirps = pgTable("chirps",
   {

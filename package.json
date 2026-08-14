@@ -23,6 +23,7 @@
   "homepage": "https://github.com/rain-lab5/Chripy#readme",
   "dependencies": {
     "@types/node": "^26.2.0",
+    "argon2": "^0.45.1",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
     "postgres": "^3.4.9",
