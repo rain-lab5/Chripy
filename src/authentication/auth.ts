@@ -1,10 +1,9 @@
 import argon2 from "argon2";
-import { is } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import type { JwtPayload } from "jsonwebtoken";
-import { off } from "node:cluster";
+import { randomBytes } from "node:crypto";
 import { UnauthorizedError } from "../errors/UnauthorizedError.js";
-import { Request } from "express";
+import type { Request } from "express";
 
 type Payload = Pick<JwtPayload, "iss" | "sub" | "iat" | "exp">;
 
@@ -31,6 +30,10 @@ export function makeJWT(userID : string, expiresIn : number, secret : string) : 
         exp : issAt + expiresIn,
     };
     return jwt.sign(payload,secret);
+}
+
+export function makeRefreshToken(): string {
+  return randomBytes(32).toString("hex");
 }
 
 export function validateJWT(tokenString:string,secret : string) : string

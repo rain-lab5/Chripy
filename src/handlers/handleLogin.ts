@@ -1,9 +1,8 @@
 import type { Request, Response } from "express";
-import type { handler } from "../config.js";
-import { checkPassowrdHash } from "../authentication/auth.js";
-import {getUserByEmail} from "../db/queries/users.js";
-import { makeJWT } from "../authentication/auth.js";
-import {config} from '../config.js';
+import { checkPassowrdHash, makeJWT, makeRefreshToken } from "../authentication/auth.js";
+import { config } from "../config.js";
+import { createRefreshToken } from "../db/queries/refreshTokens.js";
+import { getUserByEmail } from "../db/queries/users.js";
 
 export async function handleLogin(req: Request, res: Response) {
   const body = req.body;
@@ -15,7 +14,6 @@ export async function handleLogin(req: Request, res: Response) {
     typeof body.email !== "string" ||
     !("password" in body) ||
     typeof body.password !== "string"
-    
   ) {
     res.status(400).json({
       error: "Invalid request body...",
@@ -23,22 +21,7 @@ export async function handleLogin(req: Request, res: Response) {
     return;
   }
 
-  let expiresInSeconds = 3600;
-
-  if ("expiresInSeconds" in body) {
-    if (typeof body.expiresInSeconds !== "number") {
-    res.status(400).json({
-      error: "Invalid request body",
-    });
-    return;
-  }
-
-  expiresInSeconds = Math.min(body.expiresInSeconds, 3600);
-}
-
-
   const user = await getUserByEmail(body.email);
-
 
   if (!user) {
     res.status(401).json({
@@ -59,12 +42,23 @@ export async function handleLogin(req: Request, res: Response) {
     return;
   }
 
-  const token = makeJWT(user.id,expiresInSeconds,config.secret);
+  const token = makeJWT(user.id, 60 * 60, config.secret);
+  const refreshToken = makeRefreshToken();
+  const refreshTokenExpiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 60);
+
+  await createRefreshToken({
+    token: refreshToken,
+    user_id: user.id,
+    expiresAt: refreshTokenExpiresAt,
+    revokedAt: null,
+  });
+
   res.status(200).json({
     id: user.id,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     email: user.email,
-    token : token,
+    token,
+    refreshToken,
   });
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { getBearerToken,makeJWT, validateJWT } from "./auth.js";
+import { getBearerToken,makeJWT, makeRefreshToken, validateJWT } from "./auth.js";
 
 
 describe("JWT authentication", () => {
@@ -37,6 +37,14 @@ describe("JWT authentication", () => {
 });
 
 
+
+describe("makeRefreshToken", () => {
+  it("should generate a 256-bit hex refresh token", () => {
+    const token = makeRefreshToken();
+
+    expect(token).toMatch(/^[a-f0-9]{64}$/);
+  });
+});
 
 describe("getBearerToken", () => {
   it("should return the token from the Authorization header", () => {

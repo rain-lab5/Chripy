@@ -11,6 +11,8 @@ import { handleAddChirp } from './handlers/handleAddChirp.js';
 import { handleGetChirps } from './handlers/handleGetChirps.js';
 import { handleGetChirp } from './handlers/handleGetChirp.js';
 import { handleLogin } from './handlers/handleLogin.js';
+import { handleRefresh } from './handlers/handleRefresh.js';
+import { handleRevoke } from './handlers/handleRevoke.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -44,6 +46,8 @@ app.post("/api/chirps",handleAddChirp);
 app.get("/api/chirps",handleGetChirps);
 app.get("/api/chirps/:chirpId",handleGetChirp);
 app.post("/api/login",handleLogin);
+app.post("/api/refresh", handleRefresh);
+app.post("/api/revoke", handleRevoke);
 
 
 //--- This must be after all methods, before the listen ---//
