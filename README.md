@@ -37,6 +37,7 @@ Chripy-recovered
 │   ├──handlers
 │   │   ├──handleAddChirp.ts
 │   │   ├──handleCreateUser.ts
+│   │   ├──handleDeleteChirp.ts
 │   │   ├──handleDeleteUsers.ts
 │   │   ├──handleGetChirp.ts
 │   │   ├──handleGetChirps.ts

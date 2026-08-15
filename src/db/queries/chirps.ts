@@ -28,3 +28,12 @@ export async function getChirpById(id: string): Promise<Chirp | undefined> {
 
   return chirp;
 }
+
+export async function deleteChirp(id: string): Promise<boolean> {
+  const [deletedChirp] = await db
+    .delete(chirps)
+    .where(eq(chirps.id, id))
+    .returning({ id: chirps.id });
+
+  return !!deletedChirp;
+}

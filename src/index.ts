@@ -14,6 +14,7 @@ import { handleLogin } from './handlers/handleLogin.js';
 import { handleRefresh } from './handlers/handleRefresh.js';
 import { handleRevoke } from './handlers/handleRevoke.js';
 import { handleUpdateInfo } from './handlers/handleUpdateInfo.js';
+import { handleDeleteChirp } from './handlers/handleDeleteChirp.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -47,6 +48,7 @@ app.put("/api/users", handleUpdateInfo);
 app.post("/api/chirps",handleAddChirp);
 app.get("/api/chirps",handleGetChirps);
 app.get("/api/chirps/:chirpId",handleGetChirp);
+app.delete("/api/chirps/:chirpId", handleDeleteChirp);
 app.post("/api/login",handleLogin);
 app.post("/api/refresh", handleRefresh);
 app.post("/api/revoke", handleRevoke);
