@@ -13,6 +13,7 @@ import { handleGetChirp } from './handlers/handleGetChirp.js';
 import { handleLogin } from './handlers/handleLogin.js';
 import { handleRefresh } from './handlers/handleRefresh.js';
 import { handleRevoke } from './handlers/handleRevoke.js';
+import { handleUpdateInfo } from './handlers/handleUpdateInfo.js';
 
 const app : Express = express();
 const PORT = 8080;
@@ -41,6 +42,7 @@ app.post("/admin/reset",handleDeleteUsers);
 //--- TO DELETE ---//
 
 app.post("/api/users",handleCreateUser);
+app.put("/api/users", handleUpdateInfo);
 
 app.post("/api/chirps",handleAddChirp);
 app.get("/api/chirps",handleGetChirps);

@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
+import { UnauthorizedError } from "../errors/UnauthorizedError.js";
 import { getBearerToken,makeJWT, makeRefreshToken, validateJWT } from "./auth.js";
 
 
@@ -55,11 +56,19 @@ describe("getBearerToken", () => {
     expect(getBearerToken(req)).toBe("abc123");
   });
 
-  it("should throw if the Authorization header is missing", () => {
+  it("should throw UnauthorizedError if the Authorization header is missing", () => {
     const req = {
       get: () => undefined,
     } as any;
 
-    expect(() => getBearerToken(req)).toThrow();
+    expect(() => getBearerToken(req)).toThrow(UnauthorizedError);
+  });
+
+  it("should throw UnauthorizedError if the Authorization header is malformed", () => {
+    const req = {
+      get: () => "Token abc123",
+    } as any;
+
+    expect(() => getBearerToken(req)).toThrow(UnauthorizedError);
   });
 });

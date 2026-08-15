@@ -45,7 +45,8 @@ Chripy-recovered
 │   │   ├──handleResetHits.ts
 │   │   ├──handleRevoke.ts
 │   │   ├──handlerMetrics.ts
-│   │   └──handlerValidateChripy.ts
+│   │   ├──handlerValidateChripy.ts
+│   │   └──handleUpdateInfo.ts
 │   ├──middleware
 │   │   ├──errorHandler.ts
 │   │   ├──logResponse.ts

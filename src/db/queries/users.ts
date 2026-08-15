@@ -28,3 +28,21 @@ export async function getUserByEmail(email : string) : Promise<User | undefined>
   const [result] = await db.select().from(users).where(eq(users.email,email));
   return result;
 }
+
+export async function updateUser(
+  userId: string,
+  updates: Partial<Pick<User, "email" | "hashed_password">>,
+): Promise<Omit<User, "hashed_password"> | undefined> {
+  const [result] = await db
+    .update(users)
+    .set(updates)
+    .where(eq(users.id, userId))
+    .returning({
+      id: users.id,
+      email: users.email,
+      createdAt: users.createdAt,
+      updatedAt: users.updatedAt,
+    });
+
+  return result;
+}

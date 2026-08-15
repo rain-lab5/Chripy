@@ -8,6 +8,9 @@ import {config} from '../config.js';
 
 type TargetWord = "kerfuffle" | "sharbert" | "fornax";
 
+//--- its a good practice to write down the path the current handler is assigned to ---//
+//--- This handler is for --> POST /api/chirps
+
 
 const targetWords: TargetWord[] = [
   "kerfuffle",
