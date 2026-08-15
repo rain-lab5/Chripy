@@ -74,3 +74,19 @@ export function getBearerToken(req: Request): string {
   return parts[1];
 }
 
+export function getAPIKey(req: Request): string {
+  const authHeader = req.get("Authorization");
+
+  if (!authHeader) {
+    throw new UnauthorizedError("Authorization header is missing");
+  }
+
+  const parts = authHeader.trim().split(/\s+/);
+
+  if (parts.length !== 2 || parts[0] !== "ApiKey") {
+    throw new UnauthorizedError("Invalid API key header");
+  }
+
+  return parts[1];
+}
+

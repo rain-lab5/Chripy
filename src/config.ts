@@ -9,12 +9,13 @@ loadEnvFile();
 const dbURL = process.env.DB_URL;
 const platform = process.env.PLATFORM;
 const jwtSecret = process.env.JWT_SECRET;
+const polkaKey = process.env.POLKA_KEY;
 //--- Environment Variables ---//
 
 export type APIConfig = {
     fileserverHits : number;
-    platform : string; 
-    
+    platform : string;
+    polkaKey : string;
 };
 
 const migrationConfig: MigrationConfig = {
@@ -45,6 +46,10 @@ if(!jwtSecret)
 {
     throw new Error("[!] JWT secret is not set...");
 }
+if(!polkaKey)
+{
+    throw new Error("[!] Polka key is not set...");
+}
 
 
 //---The memory of this object is shared and accessed everywhere, editing this value in a file, then importing it in another file will not affect its value---//
@@ -52,6 +57,7 @@ if(!jwtSecret)
 export const config : Config = {
     api : {fileserverHits : 0,
         platform : platform,
+        polkaKey : polkaKey,
     },
     db : {
         url : dbURL,
