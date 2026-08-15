@@ -13,7 +13,15 @@ export async function createChirp(chirp: NewChirp) {
   return result;
 }
 
-export async function getAllChirps(): Promise<Chirp[]> {
+export async function getAllChirps(authorId?: string): Promise<Chirp[]> {
+  if (authorId) {
+    return await db
+      .select()
+      .from(chirps)
+      .where(eq(chirps.user_id, authorId))
+      .orderBy(chirps.createdAt);
+  }
+
   return await db
     .select()
     .from(chirps)
