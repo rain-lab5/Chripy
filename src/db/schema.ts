@@ -1,4 +1,4 @@
-import { pgTable, timestamp, varchar, uuid, text } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, varchar, uuid, text, boolean } from "drizzle-orm/pg-core";
 //import { text } from "node:stream/consumers";
 
 export const users = pgTable("users", {
@@ -10,6 +10,7 @@ export const users = pgTable("users", {
     .$onUpdate(() => new Date()),
   email: varchar("email", { length: 256 }).unique().notNull(),
   hashed_password : varchar("hashed_password", { length: 255 }).notNull().default("unset"),
+  is_chirpy_red: boolean("is_chirpy_red").notNull().default(false),
 });
 
 

@@ -40,6 +40,7 @@ export async function handleUpdateInfo(req: Request, res: Response) {
     email: updatedUser.email,
     createdAt: updatedUser.createdAt,
     updatedAt: updatedUser.updatedAt,
+    isChirpyRed: updatedUser.is_chirpy_red,
   });
 }
 

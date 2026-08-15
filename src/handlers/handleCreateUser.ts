@@ -43,6 +43,7 @@ export async function handleCreateUser(req : Request, res : Response)
     email: createdUser.email,
     createdAt: createdUser.createdAt,
     updatedAt: createdUser.updatedAt,
+    isChirpyRed: createdUser.isChirpyRed,
   });
 
     

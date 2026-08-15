@@ -1,6 +1,6 @@
 import { db } from "../index.js";
-import { NewUser, users,User} from "../schema.js";
-import {eq} from "drizzle-orm";
+import { NewUser, users, User } from "../schema.js";
+import { eq } from "drizzle-orm";
 
 //---CREATE UESR QUERY---//
 export async function createUser(user: NewUser) {
@@ -14,18 +14,22 @@ export async function createUser(user: NewUser) {
       email: users.email,
       createdAt: users.createdAt,
       updatedAt: users.updatedAt,
+      isChirpyRed: users.is_chirpy_red,
     });
   return result;
 }
 
-export async function deleteAllUsers()
-{
+export async function deleteAllUsers() {
   await db.delete(users);
 }
 
-export async function getUserByEmail(email : string) : Promise<User | undefined>
-{
-  const [result] = await db.select().from(users).where(eq(users.email,email));
+export async function getUserByEmail(email: string): Promise<User | undefined> {
+  const [result] = await db.select().from(users).where(eq(users.email, email));
+  return result;
+}
+
+export async function getUserById(userId: string): Promise<User | undefined> {
+  const [result] = await db.select().from(users).where(eq(users.id, userId));
   return result;
 }
 
@@ -42,7 +46,28 @@ export async function updateUser(
       email: users.email,
       createdAt: users.createdAt,
       updatedAt: users.updatedAt,
+      is_chirpy_red: users.is_chirpy_red,
     });
 
   return result;
 }
+
+export async function upgradeUserToChirpyRed(
+  userId: string,
+): Promise<Omit<User, "hashed_password"> | undefined> {
+  const [result] = await db
+    .update(users)
+    .set({ is_chirpy_red: true })
+    .where(eq(users.id, userId))
+    .returning({
+      id: users.id,
+      email: users.email,
+      createdAt: users.createdAt,
+      updatedAt: users.updatedAt,
+      is_chirpy_red: users.is_chirpy_red,
+    });
+
+  return result;
+}
+
+
